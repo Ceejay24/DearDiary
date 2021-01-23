@@ -1,4 +1,10 @@
-import { FETCH_ALL, CREATE, DELETE, LIKE } from "../constants/actionTypes";
+import {
+  FETCH_ALL,
+  CREATE,
+  DELETE,
+  LIKE,
+  UPDATE,
+} from "../constants/actionTypes";
 
 // eslint-disable-next-line
 export default (posts = [], action) => {
@@ -9,6 +15,10 @@ export default (posts = [], action) => {
       return [...posts, action.payload];
     case DELETE:
       return posts.filter((post) => post._id !== action.payload);
+    case UPDATE:
+      return posts.map((post) =>
+        post._id === action.payload._id ? action.payload : post
+      );
     case LIKE:
       return posts.map((post) =>
         post._id === action.payload._id ? action.payload : post
